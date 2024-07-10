@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status #contains http status codes
 from rest_framework.authentication import TokenAuthentication # to authenticate the user
+from rest_framework import filters
 
 
 from profiles_api import serializers
@@ -113,5 +114,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     #if you want add more authentication techniques just add them in authetication class
     #now add the permission class
     permission_classes=(permissions.UpdateOwnProfile,)
+    
+    #adding the search functionality
+    filter_backends=(filters.SearchFilter,)
+    search_fields=('name','email',)#which fields are searchable
     
     
