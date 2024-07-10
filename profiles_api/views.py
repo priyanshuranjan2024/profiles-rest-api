@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status #contains http status codes
 from rest_framework.authentication import TokenAuthentication # to authenticate the user
 from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken 
+from rest_framework.settings import api_settings
 
 
 from profiles_api import serializers
@@ -118,5 +120,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     #adding the search functionality
     filter_backends=(filters.SearchFilter,)
     search_fields=('name','email',)#which fields are searchable
+    
+    
+    
+#creating the login api
+class UserLoginApiView(ObtainAuthToken):
+    """Handle creating user authentication tokens"""
+    #this api is not visible by default so we have to overwrite the default functionality
+    renderer_classes=api_settings.DEFAULT_RENDERER_CLASSES
+    #now add this to the urls.py file
     
     

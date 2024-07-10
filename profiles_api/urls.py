@@ -13,7 +13,9 @@ router.register('profile',views.UserProfileViewSet) #if you are giving the query
 #creating the url patterns
 urlpatterns = [
     path('hello-view/',views.HelloApiView.as_view()),
+    path('login/',views.UserLoginApiView.as_view()),
     path('',include(router.urls)),#generates a set of urls for the ones that are registered in the router
+
     
     
 ] 
