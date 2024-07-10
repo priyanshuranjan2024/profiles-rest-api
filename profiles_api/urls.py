@@ -5,6 +5,9 @@ from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
 router.register('hello-viewset',views.HelloViewSet,base_name='hello-viewset')
 
+router.register('profile',views.UserProfileViewSet) #if you are giving the queryset then don't give the base_name as django will figure out the name on its own
+
+
 
 
 #creating the url patterns
