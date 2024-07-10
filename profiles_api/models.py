@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.conf import settings
 
 
 #Create the custom user manager so that we can create users using the user model that we created
@@ -60,3 +61,21 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         """Return string representation of our user"""
         return self.email
+    
+    
+#model for the user profile feed
+class ProfileFeedItem(models.Model):
+    """Profile status update"""
+    user_profile=models.ForeignKey(
+        #attach it with the auth model so that it can switch the model if we change it
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE #if the associated user profile is deleted then delete the attached feed
+    )
+    
+    status_text=models.CharField(max_length=255)
+    created_on=models.DateTimeField(auto_now_add=True)
+    
+    #for displaying convert this object into string and display the status_text
+    def __str__(self):
+        """Return the model as a string"""
+        return self.status_text
